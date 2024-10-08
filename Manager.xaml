@@ -1,0 +1,68 @@
+﻿<Page x:Class="PasswordManager.Manager"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
+      Title="Manager">
+
+    <Grid>
+        <!-- Define Rows for Toolbar and Main Content -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Toolbar -->
+            <RowDefinition Height="*"/>
+            <!-- Content -->
+        </Grid.RowDefinitions>
+
+        <!-- Toolbar Section -->
+        <ToolBar Grid.Row="0">
+            <Button Content="Add Platform" Click="AddPlatform_Button"/>
+            <Button Content="Save Changes" Click="SaveChanges_Button"/>
+            <Button Content="Add Field" Click="AddField_Button"/>
+        </ToolBar>
+
+        <!-- Main Content Section -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <!-- Left side: Platform list -->
+                <ColumnDefinition Width="*"/>
+                <!-- Right side: Details -->
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Panel: List of Platforms -->
+            <ListView Grid.Column="0"
+                      ItemsSource="{Binding Platforms}" 
+                      SelectedItem="{Binding SelectedPlatform, Mode=TwoWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding PlatformName}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <!-- Right Panel: Details View -->
+            <Grid Grid.Column="1" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Example of bound fields -->
+                <TextBlock Text="Platform:" FontWeight="Bold"/>
+                <TextBox Text="{Binding SelectedPlatform.PlatformName, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1"/>
+
+                <TextBlock Text="Username:" FontWeight="Bold" Grid.Row="2"/>
+                <TextBox Text="{Binding SelectedPlatform.Username, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3"/>
+
+                <TextBlock Text="Password:" FontWeight="Bold" Grid.Row="4"/>
+                <TextBox Text="{Binding SelectedPlatform.Password, UpdateSourceTrigger=PropertyChanged}" Grid.Row="5" />
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
